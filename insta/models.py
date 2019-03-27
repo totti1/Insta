@@ -41,8 +41,8 @@ class Image(models.Model):
         return images
 
     @classmethod
-    def update_image(cls, user, like):
-        image = cls.objects.filter(id = user).update(likes =like)
+    def update_image(cls, my_id, like):
+        image = cls.objects.filter(id = my_id).update(likes =like)
         return image
 
 class Comment(models.Model):
@@ -57,6 +57,6 @@ class Follow(models.Model):
     date_followed = models.DateTimeField(auto_now_add=True)
 
     @classmethod
-    def get_profile_id(cls, user):
-        profile = cls.objects.get(pk =user)
-        return profile
+    def get_followers(cls, user):
+        followers = cls.objects.filter(user=user).first()
+        return followers

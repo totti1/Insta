@@ -5,16 +5,23 @@ from .models import Image, Profile, Follow
 from django.contrib.auth.models import User
 
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def feed(request):
     current_user = request.user
-    follow = Follow.get_profile_id(current_user.id)
-    images = Image.get_images_by_id(follow.id)
-    current_user = None
-    for item in images:
-        current_user = User.objects.filter(id = item.id).first()
-    # print(images)
-    return render(request, 'feed.html', {"images": images, "user": current_user})
+    follow = Follow.get_followers(current_user.id)
+    print(follow)
+    if follow == None:
+        message = 'Please follow a user for example tote or aris or create an account then upload images and follow that account ;)'
+        return render(request, 'feed.html', {"message": message, "user": current_user})
 
+    else:
+        images = Image.get_images_by_id(follow.profile_id)
+        current_user = None
+        for item in images:
+            current_user = User.objects.filter(id = item.id).first()
+        # print(images)
+        return render(request, 'feed.html', {"images": images, "user": current_user})
+       
 @login_required(login_url='/accounts/login/')
 def add_picture(request):
     current_user = request.user
@@ -87,12 +94,16 @@ def follow(request, profile_id):
     follow_user = Follow(user=current_user, profile=profile)
     follow_user.save()
     print(profile_id)
-    return redirect('profile')
+    myprofile_id= str(profile.id)
+    return redirect('feed')
 
 @login_required(login_url='/accounts/login/')
 def like_image(request, image_id):
     image = Image.objects.get(pk =image_id)
-    like = image.likes
+    fav = image.likes
+    if fav == None:
+        fav = 0
+    like = fav
     like +=1
     image = Image.update_image(image_id, like)
     return redirect('feed')
