@@ -1,0 +1,47 @@
+<nav class="navbar navbar-light" style="background-color: #EAECEE">
+    <a class="navbar-brand" href="{% url 'feed' %}">
+        <img src="https://instagram-brand.com/wp-content/uploads/2016/11/Instagram_AppIcon_Aug2017.png?w=300" width="30" height="30" alt="">
+    </a>
+    <div class="col-10">
+
+        <form class="navbar-form" role="search" action="{% url 'search_results' %}">
+
+          <div class="input-group" style="width: 40%">
+            <input type="text" class="form-control" placeholder="Search user" name="user">
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit"><img src="https://static.thenounproject.com/png/101791-200.png" width="20" height="20" alt=""></button>
+            </div>
+          </div>
+
+        </form>
+    </div>
+    <div class="col">
+        <a href="{%url 'add_pic'%}" >
+            <img src="https://cdn2.iconfinder.com/data/icons/lightly-icons/30/tab-new-480.png" width="30" height="30" alt="">
+        </a>
+    </div>
+    <div class="col">
+        {% if user.is_authenticated %}
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <img src="http://cdn.onlinewebfonts.com/svg/img_87237.png" width="30" height="30" alt="">
+                </a>
+                
+                <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="{%url 'my_profile'%}">Profile</a>
+                </li>
+                <li>
+                    <a href="/logout">Logout</a>
+                </li>
+                </ul>
+            </div>
+            {% else %}
+            <div>
+            <a class='btn btn-default' href="/accounts/login">
+                <img src="https://png.pngtree.com/svg/20170831/d323f01e9c.png" width="30" height="30" alt="">
+            </a>
+            </div>
+        {% endif %}
+    </div>
+</nav>

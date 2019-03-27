@@ -1,0 +1,32 @@
+{%extends 'base.html'%}
+
+{% block content %}
+<div class="jumbotron align-self-center" style="margin: 2% 10% 2% 10%; padding: auto 10% auto 10%; background-color: whitesmoke">
+  <div class="row">
+    <div class="col-sm-6">
+      <img class="" src="{{profile.profile_photo.url}}" alt="Card image cap" width="120" height="120" style="border-radius: 120px">
+    </div>
+    <div class="col-sm-6">
+      <h6>{{profile.bio}}</h6>
+      <button type="button" class="btn btn-outline-primary">Edit Profile</button>
+      <button type="button" class="btn btn-outline-primary">Add Image</button>
+    </div>
+  </div>
+  <ul class="nav nav-tabs" style="margin: 2% 0 2%">
+    <li class="nav-item">
+      <a class="nav-link active" href="#"><img src="https://static.thenounproject.com/png/11204-200.png" width="40" height="40" alt=""></a>
+    </li>
+  </ul>
+  <div class="container-fluid">
+    <div class="row">
+      {% for item in images %}
+        <div class="col">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{{item.image.url}}" alt="Card image cap" style="border-radius: 7px">
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
