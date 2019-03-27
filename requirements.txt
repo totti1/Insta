@@ -4,6 +4,7 @@ Django==1.11.20
 django-bootstrap4==0.0.8
 django-heroku==0.3.1
 django-registration==2.4.1
+gunicorn==19.9.0
 Pillow==5.4.1
 psycopg2==2.7.7
 python-decouple==3.1
